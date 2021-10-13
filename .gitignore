@@ -3,6 +3,3 @@ creds.py
 __pycache__
 uhg.txt
 dbTest.py
-# The following file are excluded because they are too massive.
-data/NonDomesticVAERSDATA.csv
-data/2021VAERSDATA.csv
