@@ -18,4 +18,4 @@ os.environ['DBPASSWD'] = 'Your database password'
 3. `cd addData`
 4. Run `addCSVData.py`, `addCSVSymptoms.py`, and `addCSVVax.py`.
 
-You are now able to run queries on the VAERS data.
+You are now able to run queries on the VAERS data in your database.
