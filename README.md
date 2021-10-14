@@ -1,4 +1,4 @@
-# VAERS-WTF
+# VAERS-Analysis
 ### Analyzing [VAERS (Vaccine Adverse Event Reporting System)](https://vaers.hhs.gov/) Data
 
 This repo was created to analyze the reports of vaccine injuries since 1990, which can be downloaded from [the VAERS download page](https://vaers.hhs.gov/data/datasets.html?). When I saw that the files from 2021 were *12 times* the size of the files from 2020, I decided to look into this. WTF happened!? The year isn't even over yet!
