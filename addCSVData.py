@@ -111,7 +111,7 @@ for csv in data_filenames:
             )
             VALUES
             {",".join('(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)' for _ in range(record_count))}""",
-            params=params, convert_blanks_to_nulls=True)
+            params=params, convert_blanks_to_nulls=True, commit=True)
     except ProgrammingError:
         with open('errors.json', 'r') as rf:
             errors = json.load(rf)
@@ -122,7 +122,7 @@ for csv in data_filenames:
     print('Done.')
 
                 
-    os.system(f"mv /home/nbroyles/Documents/Yoshi/data/{csv} /home/nbroyles/Documents/Yoshi/processed/{csv}")
+    os.system(f"mv data/{csv} data/processed/{csv}")
     print()
 
 db.close()
