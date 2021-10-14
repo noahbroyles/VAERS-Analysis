@@ -50,31 +50,24 @@ for csv in data_filenames:
         params += c_params
 
     print('Executing statement in database...')
-    try:
-        db.execute_stmt(f"""INSERT IGNORE INTO tVaccine (
-            VAERS_ID,
-            VaccineType,
-            Manufacturer,
-            VaccineLot,
-            DoseSeries,
-            VaxRoute,
-            VaxSite,
-            VaccineName
-            )
-            VALUES
-            {",".join('(?,?,?,?,?,?,?,?)' for _ in range(record_count))}""",
-            params=params, convert_blanks_to_nulls=True, commit=True)
-    except ProgrammingError:
-        with open('errors.json', 'r') as rf:
-            errors = json.load(rf)
-        errors.append(csv)
-        with open('errors.json', 'w') as wf:
-            json.dump(errors, wf, indent=4)
+    db.execute_stmt(f"""INSERT IGNORE INTO tVaccine (
+        VAERS_ID,
+        VaccineType,
+        Manufacturer,
+        VaccineLot,
+        DoseSeries,
+        VaxRoute,
+        VaxSite,
+        VaccineName
+        )
+        VALUES
+        {",".join('(?,?,?,?,?,?,?,?)' for _ in range(record_count))}""",
+        params=params, convert_blanks_to_nulls=True, commit=True)
 
     print('Done.')
 
                 
-    os.system(f"mv data/{csv} data/processed/{csv}")
+    os.system(f"mv ../data/{csv} ../data/processed/{csv}")
     print()
 
 db.close()

@@ -52,7 +52,7 @@ for csv in data_filenames:
         {",".join('(?,?,?,?,?,?,?,?,?,?,?)' for _ in range(record_count))}""",
         params=params, convert_blanks_to_nulls=True)
 
-    os.system(f"mv data/{csv} data/processed/{csv}")
+    os.system(f"mv ../data/{csv} ../data/processed/{csv}")
     print('Done.')
 
 db.close()
