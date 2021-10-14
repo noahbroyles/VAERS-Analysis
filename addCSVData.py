@@ -1,10 +1,14 @@
 import os
+import json
 import creds
+
 
 from addict import Dict
 from datetime import datetime
 from svFileConvertor import csv2json
+from pymysql.err import ProgrammingError
 from database import Database, PreparedStatement
+
 
 
 def get_date(date_string):
@@ -102,7 +106,16 @@ for csv in data_filenames:
                 determine_bool(record.ER_ED_VISIT),
                 record.ALLERGIES
             ], convert_blanks_to_nulls=True)
-        db.execute_stmt(pstmt.get_finished_sql(), commit=True)
+            
+        try:
+            db.execute_stmt(pstmt.get_finished_sql(), commit=True)
+        except ProgrammingError:
+            with open('errors.json', 'r') as rf:
+                errors = json.load(rf)
+            errors[record.VAERS_ID] = record
+            with open('errors.json', 'w') as wf:
+                json.dump(errors, wf, indent=4)
+
     print()
 
 db.close()
