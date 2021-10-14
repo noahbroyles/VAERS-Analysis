@@ -27,11 +27,11 @@ def determine_bool(string):
 
 db = Database()
 
-data_filenames = [f for f in os.listdir("data") if f.endswith('VAX.csv')]
+data_filenames = [f for f in os.listdir("../data") if f.endswith('VAX.csv')]
 
 for csv in data_filenames:
     print(f'ADDING RECORDS FROM {csv[:4]}...')
-    records = [Dict(r) for r in csv2json(f"data/{csv}")]
+    records = [Dict(r) for r in csv2json(f"../data/{csv}")]
 
     params = []
     record_count = len(records)

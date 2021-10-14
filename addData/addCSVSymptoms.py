@@ -10,11 +10,11 @@ from svFileConvertor import csv2json
 
 db = Database()
 
-data_filenames = [f for f in os.listdir("data") if f.endswith('SYMPTOMS.csv')]
+data_filenames = [f for f in os.listdir("../data") if f.endswith('SYMPTOMS.csv')]
 
 for csv in data_filenames:
     print(f'ADDING SYMPTOM RECORDS FROM {csv[:4]}...')
-    records = [Dict(r) for r in csv2json(f"data/{csv}")]
+    records = [Dict(r) for r in csv2json(f"../data/{csv}")]
     record_count = len(records)
 
     params = []
