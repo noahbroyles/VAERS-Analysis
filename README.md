@@ -7,7 +7,7 @@ This repo was created to analyze the reports of vaccine injuries since 1990, whi
 
 To use this on your own, take the following steps:
 1. Run `schema.sql` in a MySQL database.
-2. Set up a `creds.py` file as follows:
+2. Set up a `creds.py` file inside `addData` as follows:
   ```python
 import os
 
@@ -15,6 +15,7 @@ os.environ['DBHOST'] = 'your database host'
 os.environ['DBUSER'] = 'your database user'
 os.environ['DBPASSWD'] = 'Your database password'
   ```
-3. Run `addCSVData.py`, `addCSVSymptoms.py`, and `addCSVVax.py`.
+3. `cd addData`
+4. Run `addCSVData.py`, `addCSVSymptoms.py`, and `addCSVVax.py`.
 
 You are now able to run queries on the VAERS data.
