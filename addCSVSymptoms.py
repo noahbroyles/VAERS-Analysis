@@ -51,6 +51,6 @@ for csv in data_filenames:
         params=params, convert_blanks_to_nulls=True)
 
     os.system(f"mv data/{csv} data/processed/{csv}")
-    print()
+    print('Done.')
 
 db.close()
