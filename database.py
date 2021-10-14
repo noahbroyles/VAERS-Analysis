@@ -48,9 +48,8 @@ for SELECT and EXEC if the stored procedure is meant to return something.
 
         if params:
             if convert_blanks_to_nulls:
-                params = (p if p != "" else None for p in params)
-            else:
-                params = tuple(params)
+                params = [p if p != "" else None for p in params]
+            params = tuple(params)
             sqlQuery = self._prepare_for_params(sqlQuery)
             cursor.execute(sqlQuery, params)
         else:
@@ -72,9 +71,8 @@ Run a stored procedure in the database and wait for it to finish
         cursor = self._connection.cursor()
         if params:
             if convert_blanks_to_nulls:
-                params = (p if p != "" else None for p in params)
-            else:
-                params = tuple(params)
+                params = [p if p != "" else None for p in params]
+            params = tuple(params)
             procCode = self._prepare_for_params(procCode)
             cursor.execute(procCode, params)
 
@@ -108,9 +106,8 @@ Parameterizes statement and runs in the database. Use for INSERT, UPDATE, and DR
         cursor = self._connection.cursor()
         if params:
             if convert_blanks_to_nulls:
-                params = (p if p != "" else None for p in params)
-            else:
-                params = tuple(params)
+                params = [p if p != "" else None for p in params]
+            params = tuple(params)
             sqlStmt = self._prepare_for_params(sqlStmt)
             cursor.execute(sqlStmt, params)
         else:
