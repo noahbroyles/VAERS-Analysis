@@ -106,7 +106,7 @@ for csv in data_filenames:
                 determine_bool(record.ER_ED_VISIT),
                 record.ALLERGIES
             ], convert_blanks_to_nulls=True)
-            
+
         try:
             db.execute_stmt(pstmt.get_finished_sql(), commit=True)
         except ProgrammingError:
@@ -115,7 +115,8 @@ for csv in data_filenames:
             errors[record.VAERS_ID] = record
             with open('errors.json', 'w') as wf:
                 json.dump(errors, wf, indent=4)
-
+                
+    os.system(f"mv data/{csv} processed/{csv}")
     print()
 
 db.close()
