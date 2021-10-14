@@ -45,6 +45,8 @@ for csv in data_filenames:
                 record.SYMPTOMVERSION5
             ], convert_blanks_to_nulls=True)
         db.execute_stmt(pstmt.get_finished_sql(), commit=True)
+
+    os.system(f"mv data/{csv} processed/{csv}")
     print()
 
 db.close()
