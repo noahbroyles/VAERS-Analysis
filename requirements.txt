@@ -1,0 +1,2 @@
+PyMySQL==1.0.2
+addict==2.4.0
