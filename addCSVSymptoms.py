@@ -13,40 +13,44 @@ data_filenames = [f for f in os.listdir("data") if f.endswith('SYMPTOMS.csv')]
 for csv in data_filenames:
     print(f'ADDING SYMPTOM RECORDS FROM {csv[:4]}...')
     records = [Dict(r) for r in csv2json(f"data/{csv}")]
+    record_count = len(records)
 
+    params = []
     for record in records:
-        print(f"\tAdding record {record.VAERS_ID}")
-        pstmt = PreparedStatement("""INSERT IGNORE INTO tSymptom (
-            VAERS_ID,
-            Symptom1,
-            SymptomVersion1,
-            Symptom2,
-            SymptomVersion2,
-            Symptom3,
-            SymptomVersion3,
-            Symptom4,
-            SymptomVersion4,
-            Symptom5,
-            SymptomVersion5
-            )
-            VALUES
-            (?,?,?,?,?,?,?,?,?,?,?)""",
-            params=[
-                record.VAERS_ID,
-                record.SYMPTOM1,
-                record.SYMPTOMVERSION1,
-                record.SYMPTOM2,
-                record.SYMPTOMVERSION2,
-                record.SYMPTOM3,
-                record.SYMPTOMVERSION3,
-                record.SYMPTOM4,
-                record.SYMPTOMVERSION4,
-                record.SYMPTOM5,
-                record.SYMPTOMVERSION5
-            ], convert_blanks_to_nulls=True)
-        db.execute_stmt(pstmt.get_finished_sql(), commit=True)
+        print(f"\tPreparing record {record.VAERS_ID}")
+        c_params = [
+            record.VAERS_ID,
+            record.SYMPTOM1,
+            record.SYMPTOMVERSION1,
+            record.SYMPTOM2,
+            record.SYMPTOMVERSION2,
+            record.SYMPTOM3,
+            record.SYMPTOMVERSION3,
+            record.SYMPTOM4,
+            record.SYMPTOMVERSION4,
+            record.SYMPTOM5,
+            record.SYMPTOMVERSION5
+        ]
+        params += c_params
+    print("Executing statement in database...")
+    db.execute_stmt(f"""INSERT IGNORE INTO tSymptom (
+        VAERS_ID,
+        Symptom1,
+        SymptomVersion1,
+        Symptom2,
+        SymptomVersion2,
+        Symptom3,
+        SymptomVersion3,
+        Symptom4,
+        SymptomVersion4,
+        Symptom5,
+        SymptomVersion5
+        )
+        VALUES
+        {",".join('(?,?,?,?,?,?,?,?,?,?,?)' for _ in range(record_count))}""",
+        params=params, convert_blanks_to_nulls=True)
 
-    os.system(f"mv data/{csv} processed/{csv}")
+    os.system(f"mv data/{csv} data/processed/{csv}")
     print()
 
 db.close()
