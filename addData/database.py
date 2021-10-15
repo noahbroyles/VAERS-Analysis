@@ -1,7 +1,6 @@
 import os
 import time
 import pymysql
-import logging
 
 
 try:
@@ -87,10 +86,8 @@ Run a stored procedure in the database and wait for it to finish
             if slept >= timeoutSeconds:
                 break
             else:
-                logging.info('database.py:execute_proc():-> Sleeping in loop because there is a nextset()...')
                 time.sleep(1)
                 slept += 1
-        logging.info(f'database.py:execute_proc():-> By the time we got out of the loop, we had slept {slept} times')
 
         cursor.close()
         if commit:
@@ -130,6 +127,14 @@ class ParameterMismatchError(Exception):
 
 
 class PreparedStatement:
+    """
+    Please please PLEASE only use this class for debugging. It is NOT secure against SQL injections, since it simply substitutes
+    parameter placeholders with whatever value they are assigned, with no data validation.
+    DO NOT USE WITH UN-SANITIZED USER DATA!!!
+    This class is very useful for debugging queries to see how they look with all their parameters in place. For huge SQL statements,
+    performance is much slower than just executing the query with the params using Database.execute_stmt() or Database.query().
+    """
+    
     def __init__(self, sql: str, params: list, convert_blanks_to_nulls: bool = True):
         self._sql = sql
         self._params = params
