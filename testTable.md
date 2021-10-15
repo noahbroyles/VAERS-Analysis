@@ -1,0 +1,7 @@
+| Vaccine Type | Manufacturer | Number of Deaths |
+| :--- | :--- | :--- |
+| COVID19 | PFIZER\\BIONTECH | 7701 |
+| COVID19 | MODERNA | 783 |
+| FLUX | UNKNOWN MANUFACTURER | 547 |
+| DTAPHEPBIP | GLAXOSMITHKLINE BIOLOGICALS | 404 |
+| COVID19 | JANSSEN | 390 |
