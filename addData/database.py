@@ -18,12 +18,13 @@ class DatabaseError(Exception):
 
 class Database:
 
-    def __init__(self, server: str = DBHOST, port: int = 1433, database: str = DATABASE, username: str = DBUSER, password: str = DBPASSWD, charset: str = 'UTF-8'):
+    def __init__(self, server: str = DBHOST, port: int = 3306, database: str = DATABASE, username: str = DBUSER, password: str = DBPASSWD, charset: str = 'UTF-8'):
         self._connection = pymysql.connect(
             user=username,
             password=password,
             host=server,
             database=database,
+            port=port,
             charset=charset
         )
 
@@ -134,7 +135,7 @@ class PreparedStatement:
     This class is very useful for debugging queries to see how they look with all their parameters in place. For huge SQL statements,
     performance is much slower than just executing the query with the params using Database.execute_stmt() or Database.query().
     """
-    
+
     def __init__(self, sql: str, params: list, convert_blanks_to_nulls: bool = True):
         self._sql = sql
         self._params = params
