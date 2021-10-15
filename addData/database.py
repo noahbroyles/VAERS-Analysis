@@ -24,7 +24,8 @@ class Database:
             user=username,
             password=password,
             host=server,
-            database=database
+            database=database,
+            charset=charset
         )
 
     def __enter__(self):
